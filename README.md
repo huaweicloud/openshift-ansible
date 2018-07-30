@@ -29,7 +29,7 @@ In order to setup openshift cluster by ansible, you'll need to finish the follow
 1. pull openshift-ansible github repository.
 
 ```
-curl https://raw.githubusercontent.com/huaweicloud/openshift-ansible/hack/pull-repos.sh | bash
+curl https://raw.githubusercontent.com/huaweicloud/openshift-ansible/master/hack/pull-repos.sh | bash
 ```
 
 2. set cloud credentials.
