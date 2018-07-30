@@ -1,0 +1,10 @@
+export OS_AUTH_URL=https://iam.cn-north-1.myhwclouds.com
+export OS_USERNAME=user
+export OS_PASSWORD=password
+export OS_IDENTITY_API_VERSION=3
+export OS_DOMAIN_NAME=domain
+export OS_USER_DOMAIN_NAME=domain
+export OS_PROJECT_DOMAIN_NAME=domain
+export OS_TENANT_NAME=tenant
+export OS_REGION_NAME=cn-north-1
+export OS_AVAILABILITY_ZONE=cn-north-1a
