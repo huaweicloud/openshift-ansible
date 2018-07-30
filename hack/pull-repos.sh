@@ -6,7 +6,7 @@ echo "install git"
 yum install -y git
 
 echo "git clone openshift-ansible"
-git clone https://github.com/edisonxiang/openshift-ansible
+git clone https://github.com/huaweicloud/openshift-ansible
 version="master"
 if [ -n "$1" ]; then
     version="$1"
