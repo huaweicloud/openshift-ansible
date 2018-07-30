@@ -17,3 +17,11 @@
     enabled: yes
 
 # TODO(shadower): add the flannel interface tasks from post-provision-openstack.yml
+
+- name: Ensure hostname in /etc/hosts
+  lineinfile:
+    dest: /etc/hosts
+    state: present
+    line: "{{ hostvars[item]['private_v4'] }} {{ hostvars[item]['ansible_hostname'] + '.' + openshift_openstack_full_dns_domain }}"
+  with_items: "{{ groups['cluster_hosts'] }}"
+  when: hostvars[item]['private_v4'] is defined

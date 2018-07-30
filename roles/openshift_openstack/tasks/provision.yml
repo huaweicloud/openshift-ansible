@@ -9,10 +9,10 @@
   register: openstack_cli_exists
   ignore_errors: True
 
-- name: validate the Heat template
-  command: openstack orchestration template validate -t {{ stack_template_path }}
-  register: template_validation_output
-  when: openstack_cli_exists|succeeded
+#- name: validate the Heat template
+#  command: openstack orchestration template validate -t {{ stack_template_path }}
+#  register: template_validation_output
+#  when: openstack_cli_exists|succeeded
 
 - name: Check if the stack exists
   command: openstack stack show {{ openshift_openstack_stack_name }}
@@ -48,11 +48,11 @@
   - openstack_cli_exists|succeeded
   - stack_update_dry_run_output|failed
 
-- fail:
-    msg: The Heat stack creation failed. Please inspect the message above.
-  when:
-  - openstack_cli_exists|succeeded
-  - (stack_create_dry_run_output|failed or stack_update_dry_run_output|failed)
+#- fail:
+#    msg: The Heat stack creation failed. Please inspect the message above.
+#  when:
+#  - openstack_cli_exists|succeeded
+#  - (stack_create_dry_run_output|failed or stack_update_dry_run_output|failed)
 
 - name: Handle the Stack (create/delete)
   ignore_errors: True
