@@ -67,7 +67,7 @@ vi keystonerc
 
 Here are some application examples for testing openshift on huawei clouds.
 
-[applications](applications/)
+- [applications](applications/)
 
 ## Contributing
 
