@@ -53,7 +53,7 @@ vi keystonerc
 
 3. Create a new keypair named **openshift** in cloud web console and put the private key file **openshift.pem** into **openshift-ansible** folder.
 
-4. Install openshift cluster by the following command.
+4. Install openshift cluster by the following command which can be executed repeatly until success.
 ```
 . hack/install.sh
 ```
