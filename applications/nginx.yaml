@@ -1,0 +1,12 @@
+piVersion: v1
+kind: Pod
+metadata:
+  name: webtest
+spec:
+  containers:
+    - name: webtest
+      image: nginx
+      ports:
+        - name: webtest
+          containerPort: 80
+          protocol: TCP
