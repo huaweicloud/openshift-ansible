@@ -29,6 +29,7 @@ oc get pvc
 
 3. Create two nginx pods application with load balancer service.
 ```
+oc adm policy add-scc-to-group anyuid system:authenticated
 oc create -f applications/nginxwithloadbalancer.yaml
 ```
 
