@@ -136,4 +136,5 @@ openshift_openstack_user: root
 
 openshift_openstack_heat_template_version: 2016-04-08
 openshift_openstack_availability_zone: "{{ lookup('env','OS_AVAILABILITY_ZONE') }}"
+openshift_docker_selinux_enabled: false
 openshift_openstack_bootable_volume_size: 40
