@@ -8,110 +8,65 @@ This repository contains [Ansible](https://www.ansible.com/) roles and
 playbooks to install, upgrade, and manage
 [OpenShift](https://www.openshift.com/) clusters.
 
-**Note**: the Ansible playbooks in this repository require an RPM
-package that provides `docker`. Currently, the RPMs from
-[dockerproject.org](https://dockerproject.org/) do not provide this
-requirement, though they may in the future. This limitation is being
-tracked by
-[#2720](https://github.com/openshift/openshift-ansible/issues/2720).
+This repository is based on [openshift/openshift-ansible](https://github.com/openshift/openshift-ansible) project.
+See [more informations](README_OPENSHIFT_ANSIBLE.md).
 
-## Getting the correct version
-When choosing an openshift release, ensure that the necessary origin packages
-are available in your distribution's repository.  By default, openshift-ansible
-will not configure extra repositories for testing or staging packages for
-end users.
+To setup openshift cluster by ansible on huawei clouds, it has made some changes about openstack roles, playbooks and inventories.
 
-We recommend using a release branch. We maintain stable branches
-corresponding to upstream Origin releases, e.g.: we guarantee an
-openshift-ansible 3.2 release will fully support an origin
-[1.2 release](https://github.com/openshift/openshift-ansible/tree/release-1.2).
+## Usage
 
-The most recent branch will often receive minor feature backports and
-fixes. Older branches will receive only critical fixes.
+In order to setup openshift cluster by ansible, you'll need to finish the following steps:
 
-In addition to the release branches, the master branch
-[master branch](https://github.com/openshift/openshift-ansible/tree/master)
-tracks our current work **in development** and should be compatible
-with the
-[Origin master branch](https://github.com/openshift/origin/tree/master)
-(code in development).
+### Prerequisite
+- Host Operation System: CentOS 7.3+
+- Host Operation System User: root
+- Available EIP Quatas on Cloud: 4+
+- Available VPC Quatas on Cloud: 1+
+- Available Security Group Quatas on Cloud: 6+
 
+### Installation
 
-
-**Getting the right openshift-ansible release**
-
-Follow this release pattern and you can't go wrong:
-
-| Origin/OCP    | OpenShift-Ansible version | openshift-ansible branch |
-| ------------- | ----------------- |----------------------------------|
-| 1.3 / 3.3          | 3.3               | release-1.3 |
-| 1.4 / 3.4          | 3.4               | release-1.4 |
-| 1.5 / 3.5          | 3.5               | release-1.5 |
-| 3.*X*         | 3.*X*             | release-3.x |
-
-If you're running from the openshift-ansible **master branch** we can
-only guarantee compatibility with the newest origin releases **in
-development**. Use a branch corresponding to your origin version if
-you are not running a stable release.
-
-
-## Setup
-
-Install base dependencies:
-
-Requirements:
-
-- Ansible >= 2.4.3.0
-- Jinja >= 2.7
-- pyOpenSSL
-- python-lxml
-
-----
-
-Fedora:
+1. pull openshift-ansible github repository.
 
 ```
-dnf install -y ansible pyOpenSSL python-cryptography python-lxml
+curl https://raw.githubusercontent.com/huaweicloud/openshift-ansible/hack/pull-repos.sh | bash
 ```
 
-Additional requirements:
-
-Logging:
-
-- java-1.8.0-openjdk-headless
-- patch
-
-Metrics:
-
-- httpd-tools
-
-## Simple all-in-one localhost Installation
-This assumes that you've installed the base dependencies and you're running on
-Fedora or RHEL
+2. set cloud credentials.
 ```
-git clone https://github.com/openshift/openshift-ansible
 cd openshift-ansible
-sudo ansible-playbook -i inventory/hosts.localhost playbooks/prerequisites.yml
-sudo ansible-playbook -i inventory/hosts.localhost playbooks/deploy_cluster.yml
+
+vi keystonerc
+
+  # set your own ENV in the file
+  export OS_AUTH_URL=https://iam.cn-north-1.myhwclouds.com
+  export OS_USERNAME=user
+  export OS_PASSWORD=password
+  export OS_IDENTITY_API_VERSION=3
+  export OS_DOMAIN_NAME=domain
+  export OS_USER_DOMAIN_NAME=domain
+  export OS_PROJECT_DOMAIN_NAME=domain
+  export OS_TENANT_NAME=tenant
+  export OS_REGION_NAME=cn-north-1
+  export OS_AVAILABILITY_ZONE=cn-north-1a
 ```
 
-## Complete Production Installation Documentation:
+3. Create a new keypair named **openshift** in cloud web console and put the private key file **openshift.pem** into **openshift-ansible** folder.
 
-- [OpenShift Enterprise](https://docs.openshift.com/enterprise/latest/install_config/install/advanced_install.html)
-- [OpenShift Origin](https://docs.openshift.org/latest/install_config/install/advanced_install.html)
+4. Install openshift cluster by the following command.
+```
+. hack/install.sh
+```
 
-## Containerized OpenShift Ansible
-
-See [README_CONTAINER_IMAGE.md](README_CONTAINER_IMAGE.md) for information on how to package openshift-ansible as a container image.
-
-## Installer Hooks
-
-See the [hooks documentation](HOOKS.md).
+5. If you need to uninsall openshift cluster, you can run the following command.
+```
+. hack/uninstall.sh
+```
 
 ## Contributing
 
 See the [contribution guide](CONTRIBUTING.md).
 
-## Building openshift-ansible RPMs and container images
+## License
 
-See the [build instructions](BUILD.md).
+See the [LICENSE](LICENSE) file for details.
