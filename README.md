@@ -63,6 +63,12 @@ vi keystonerc
 . hack/uninstall.sh
 ```
 
+## Applications
+
+Here are some application examples for testing openshift on huawei clouds.
+
+[applications](applications/)
+
 ## Contributing
 
 See the [contribution guide](CONTRIBUTING.md).

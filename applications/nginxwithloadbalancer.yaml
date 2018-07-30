@@ -1,0 +1,31 @@
+piVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  annotations:
+    service.beta.kubernetes.io/openstack-internal-load-balancer: "false"
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginxtest
+    spec:
+      containers:
+      - name: nginxtest
+        image: nginx
+        ports:
+        - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginxtest
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
