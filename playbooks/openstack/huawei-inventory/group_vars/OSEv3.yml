@@ -22,7 +22,7 @@ openshift_cloudprovider_openstack_tenant_name: "{{ lookup('env','OS_TENANT_NAME'
 openshift_cloudprovider_openstack_region: "{{ lookup('env','OS_REGION_NAME') }}"
 openshift_cloudprovider_openstack_blockstorage_version: v2
 openshift_cloudprovider_openstack_domain_name: "{{ lookup('env','OS_DOMAIN_NAME') }}"
-
+openshift_cloudprovider_openstack_lb_subnet_id: "{{ lookup('env','OS_SUBNET_ID') }}"
 
 ## Use Cinder volume for Openshift registry:
 #openshift_hosted_registry_storage_kind: openstack
