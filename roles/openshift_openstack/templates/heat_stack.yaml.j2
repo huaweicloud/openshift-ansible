@@ -54,6 +54,10 @@ outputs:
     description: Floating IPs of the nodes
     value: { get_attr: [ infra_nodes, floating_ip ] }
 
+  subnet_id:
+    description: Subnet id of the nodes
+    value: { get_resource: subnet }
+
 resources:
 
 {% if not openshift_openstack_provider_network_name %}
