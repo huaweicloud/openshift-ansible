@@ -84,18 +84,12 @@
 - name: Add the new nodes to the inventory
   meta: refresh_inventory
 
-- name: Set subnet id env from stack
+- name: Export subnet id env from stack
   ignore_errors: True
-  lineinfile:
-    dest: /etc/bashrc
-    state: present
-    line: "export OS_SUBNET_ID={{ item.output_value }}"
+  shell: echo "{{ item.output_value }}" > /tmp/OS_SUBNET_ID
   with_items: "{{ stack_create.stack.outputs }}"
   when:
   - item.output_key == 'subnet_id'
-
-- name: Source subnet id env from stack
-  shell: source /etc/bashrc
 
 - name: CleanUp
   include_tasks: cleanup.yml
