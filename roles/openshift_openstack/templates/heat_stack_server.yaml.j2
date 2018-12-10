@@ -200,6 +200,7 @@ resources:
         - port:  { get_attr: [trunk-port, port_id] }
 {% else %}
         - port:  { get_resource: port }
+          floating_ip: {get_resource: floating-ip}
 {% endif %}
 {% endif %}
       user_data:
@@ -253,7 +254,6 @@ resources:
     type: OS::Neutron::FloatingIP
     properties:
       floating_network: { get_param: floating_network }
-      port_id: { get_resource: port }
 {% endif %}
 
 {% if not openshift_openstack_ephemeral_volumes|default(false)|bool %}
