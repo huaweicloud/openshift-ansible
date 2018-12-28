@@ -11,8 +11,12 @@ from __future__ import print_function
 
 from collections import Mapping
 import json
+import os
 
 import shade
+
+
+OPENSHIFT_CLUSTER = os.getenv('OPENSHIFT_CLUSTER')
 
 
 def base_openshift_inventory(cluster_hosts):
@@ -79,11 +83,10 @@ def build_inventory():
     '''Build the dynamic inventory.'''
     cloud = shade.openstack_cloud()
 
-    # TODO(shadower): filter the servers based on the `OPENSHIFT_CLUSTER`
-    # environment variable.
     cluster_hosts = [
         server for server in cloud.list_servers()
-        if 'metadata' in server and 'clusterid' in server.metadata]
+        if 'metadata' in server and 'clusterid' in server.metadata and
+        (OPENSHIFT_CLUSTER is None or server.metadata.clusterid == OPENSHIFT_CLUSTER)]
 
     inventory = base_openshift_inventory(cluster_hosts)
 
