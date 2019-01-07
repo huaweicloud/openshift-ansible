@@ -24,6 +24,11 @@ In order to setup openshift cluster by ansible, you'll need to finish the follow
 - Available VPC Quatas on Cloud: 1+
 - Available Security Group Quatas on Cloud: 6+
 
+**NOTE**: If you are trying to deployment openshift cluster on **FusionCloud**, Because unlike huawei public
+ clouds have relative fixed infra options(images, flavors, etc.), the different FusionCloud environment may have
+ different prepared infrastructures(images, flavors, etc.), you need pre-check and ensure the config
+ options. please see [FusionCloud prerequisites](playbooks/openstack/fusioncloud-inventory/README.md)
+
 ### Installation
 
 1. pull openshift-ansible github repository.

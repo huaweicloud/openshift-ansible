@@ -8,6 +8,7 @@ strurl=$OS_AUTH_URL
 strorange="orange"
 strotc="otc"
 strtelefonica="telefonica"
+strfusioncloud="fusioncloud"
 
 if [[ $strurl =~ $strorange ]]
 then
@@ -31,6 +32,14 @@ then
     ansible-playbook --user linux \
         -i playbooks/openstack/inventory.py \
         -i playbooks/openstack/telefonica-inventory \
+        --private-key ./openshift.pem \
+        playbooks/openstack/openshift-cluster/provision_install.yml
+elif [[ $strurl =~ $strfusioncloud ]]
+then
+    echo "provision fusioncloud resources for openshift and install openshift cluster on fusioncloud"
+    ansible-playbook --user root \
+        -i playbooks/openstack/inventory.py \
+        -i playbooks/openstack/fusioncloud-inventory \
         --private-key ./openshift.pem \
         playbooks/openstack/openshift-cluster/provision_install.yml
 else
